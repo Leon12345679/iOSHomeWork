@@ -28,7 +28,7 @@ class Storage<T> {
         UserDefaults.standard.set(value, forKey: forKey)
     }
     
-    public static func read(value forKey: String) -> Result<Any, Error> {
+    public static func read(value forKey: String) -> Result<T, Error> {
         do {
             let fetchedData = try fetchObjectFromDefaults(forKey)
             return .success(fetchedData)
@@ -38,11 +38,12 @@ class Storage<T> {
         }
     }
     
-    private static func fetchObjectFromDefaults(_ forKey: String) throws -> Any {
+    private static func fetchObjectFromDefaults(_ forKey: String) throws -> T {
         if let fetchedObject = UserDefaults.standard.object(forKey: forKey) {
-            return fetchedObject
-        } else {
-            throw StorageErrors.readError
+            if let fetchedObject = fetchedObject as? T {
+                 return fetchedObject
+            }
         }
+        throw StorageErrors.readError
     }
 }
