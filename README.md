@@ -1,2 +1,2 @@
 # iOSHomework
-This repo holds all of my home assignments from the Sberbank iOS School.
+Some of my assignments from the Sberbank coding bootcamp.
